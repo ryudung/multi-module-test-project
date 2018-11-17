@@ -10,4 +10,5 @@ import lombok.ToString;
 public class TransactionInfo {
     String name;
     boolean isActualTransactionActive;
+    boolean isCurrentTransactionReadOnly;
 }

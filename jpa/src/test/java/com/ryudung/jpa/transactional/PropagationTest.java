@@ -237,4 +237,20 @@ public class PropagationTest extends AbstractSpringBootTest {
                 "Existing transaction found for transaction marked with propagation 'never'"
         );
     }
+
+    //###########################################################################
+    /**
+     * 읽기만 하는 경우에는 readOnly=true를 사용하여, dirty checking을 하지않고 성능에 도움을 줄 수있다.
+     * 추가하여,
+     * readOnly=true시에 REQUIRED 보다는 SUPPORT를 사용하여 새로운 트랜잭션을 생성하지 않도록 하는 것이 더 도움이 된다.
+     * */
+    @DisplayName("SUPPORTS_readOnly_true 일 경우")
+    @Test
+    public void readOnlyTrue(){
+        //given
+        TransactionInfo transactionInfo = testServcie.SUPPORTS_readOnly_true();
+
+        //then
+        assertTrue(transactionInfo.isCurrentTransactionReadOnly());
+    }
 }

@@ -62,6 +62,11 @@ public class TestServcie {
         return getAndLoggingSupplier.get();
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public TransactionInfo SUPPORTS_readOnly_true(){
+        return getAndLoggingSupplier.get();
+    }
+
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public TransactionInfo NOT_SUPPORTED(){
         return getAndLoggingSupplier.get();
@@ -72,10 +77,9 @@ public class TestServcie {
         return getAndLoggingSupplier.get();
     }
 
-    Supplier<TransactionInfo> getAndLoggingSupplier = () -> TransactionInfo.builder()
+    private Supplier<TransactionInfo> getAndLoggingSupplier = () -> TransactionInfo.builder()
             .name(TransactionSynchronizationManager.getCurrentTransactionName())
             .isActualTransactionActive(TransactionSynchronizationManager.isActualTransactionActive())
+            .isCurrentTransactionReadOnly(TransactionSynchronizationManager.isCurrentTransactionReadOnly())
             .build();
-
-
 }
