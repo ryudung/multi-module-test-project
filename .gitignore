@@ -27,3 +27,10 @@
 
 out/*
 *.class
+jpa/out/*
+jpa/build/*
+domain/out/
+domain/build/*
+api/out/*
+api/build/*
+

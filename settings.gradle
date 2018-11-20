@@ -1,4 +1,5 @@
 rootProject.name = 'multi-module-test-project'
 include 'domain'
 include 'jpa'
+include 'api'
 

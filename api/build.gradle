@@ -1,0 +1,33 @@
+plugins {
+    id "org.asciidoctor.convert" version "1.5.3"
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
+dependencies {
+    asciidoctor('org.springframework.restdocs:spring-restdocs-asciidoctor')
+
+    compile project(':domain')
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    runtimeOnly('com.h2database:h2')
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit', module: 'junit;'
+    }
+    testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+}
+
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
