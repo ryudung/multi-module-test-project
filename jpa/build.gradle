@@ -1,3 +1,5 @@
+bootJar.enabled = true
+
 dependencies {
     compile project(':domain')
     runtimeOnly('com.h2database:h2')

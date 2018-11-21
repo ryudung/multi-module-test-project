@@ -3,9 +3,8 @@ package com.ryudung.domain.board;
 import lombok.*;
 
 import javax.persistence.*;
-
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -13,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Post {
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
