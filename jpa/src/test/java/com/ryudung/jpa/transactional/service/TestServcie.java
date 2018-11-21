@@ -62,8 +62,8 @@ public class TestServcie {
         return getAndLoggingSupplier.get();
     }
 
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public TransactionInfo SUPPORTS_readOnly_true(){
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public TransactionInfo NOT_SUPPORTS_readOnly_true(){
         return getAndLoggingSupplier.get();
     }
 
