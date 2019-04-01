@@ -28,7 +28,7 @@ public class CrudTest extends AbstractDataJpaTest {
     private EntityManager entityManager;
 
 
-    @DisplayName("presist() 트랜잭션이 존재하지 않을 경우")
+    @DisplayName("persist() 트랜잭션이 존재하지 않을 경우")
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void test() {

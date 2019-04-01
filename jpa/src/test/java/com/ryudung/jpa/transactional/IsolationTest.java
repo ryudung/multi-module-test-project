@@ -1,7 +1,7 @@
 package com.ryudung.jpa.transactional;
 
 import com.ryudung.jpa.helper.AbstractSpringBootTest;
-import com.ryudung.jpa.transactional.service.TestServcie;
+import com.ryudung.jpa.transactional.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,11 +28,11 @@ import org.springframework.context.annotation.Import;
 
 
 @Slf4j
-@Import(TestServcie.class)
+@Import(TestService.class)
 public class IsolationTest extends AbstractSpringBootTest {
 
     @Autowired
-    private TestServcie testServcie;
+    private TestService testService;
 
     @Test
     @DisplayName("")

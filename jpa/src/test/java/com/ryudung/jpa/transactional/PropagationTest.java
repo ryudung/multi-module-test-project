@@ -2,7 +2,7 @@ package com.ryudung.jpa.transactional;
 
 import com.ryudung.jpa.helper.AbstractSpringBootTest;
 import com.ryudung.jpa.transactional.pojo.TransactionInfo;
-import com.ryudung.jpa.transactional.service.TestServcie;
+import com.ryudung.jpa.transactional.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,11 +44,11 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  */
 @Slf4j
-@Import(TestServcie.class)
+@Import(TestService.class)
 public class PropagationTest extends AbstractSpringBootTest {
 
     @Autowired
-    private TestServcie testServcie;
+    private TestService testService;
 
     @BeforeEach
     void setUp() {
@@ -70,7 +70,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     void test3() {
 
         //give
-        TransactionInfo childTransaction = testServcie.REQUIRED();
+        TransactionInfo childTransaction = testService.REQUIRED();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -87,7 +87,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Test
     void test4() {
         //give
-        TransactionInfo childTransaction = testServcie.REQUIRES_NEW();
+        TransactionInfo childTransaction = testService.REQUIRES_NEW();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -104,7 +104,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Transactional
     public void test5(){
         //give
-        TransactionInfo childTransaction = testServcie.MANDATORY();
+        TransactionInfo childTransaction = testService.MANDATORY();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -128,7 +128,7 @@ public class PropagationTest extends AbstractSpringBootTest {
         //when & then
         assertThrows(
                 IllegalTransactionStateException.class,  // 예상 에러
-                ()-> testServcie.MANDATORY(), // 에러 발생 메소드!
+                ()-> testService.MANDATORY(), // 에러 발생 메소드!
                 "No existing transaction found for transaction marked with propagation 'mandatory'"// 예상 에러 메시지.
         );
     }
@@ -140,7 +140,7 @@ public class PropagationTest extends AbstractSpringBootTest {
         //when & then
         assertThrows(
                 NestedTransactionNotSupportedException.class,
-                ()-> testServcie.NESTED(),
+                ()-> testService.NESTED(),
                 "JpaDialect does not support savepoints - check your JPA provider's capabilities"
         );
     }
@@ -151,7 +151,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Transactional
     public void test8(){
         //give
-        TransactionInfo childTransaction = testServcie.SUPPORTS();
+        TransactionInfo childTransaction = testService.SUPPORTS();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -169,7 +169,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Test
     public void test9(){
         //give
-        TransactionInfo childTransaction = testServcie.SUPPORTS();
+        TransactionInfo childTransaction = testService.SUPPORTS();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -183,7 +183,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Test
     public void test10(){
         //give
-        TransactionInfo childTransaction = testServcie.NOT_SUPPORTED();
+        TransactionInfo childTransaction = testService.NOT_SUPPORTED();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -200,7 +200,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     public void test11(){
 
         //give
-        TransactionInfo childTransaction = testServcie.NOT_SUPPORTED();
+        TransactionInfo childTransaction = testService.NOT_SUPPORTED();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -215,7 +215,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Test
     public void test12(){
         //give
-        TransactionInfo childTransaction = testServcie.NEVER();
+        TransactionInfo childTransaction = testService.NEVER();
         String parentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
 
         //info
@@ -233,7 +233,7 @@ public class PropagationTest extends AbstractSpringBootTest {
         //when & then
         assertThrows(
                 IllegalTransactionStateException.class,
-                ()-> testServcie.NEVER(),
+                ()-> testService.NEVER(),
                 "Existing transaction found for transaction marked with propagation 'never'"
         );
     }
@@ -248,7 +248,7 @@ public class PropagationTest extends AbstractSpringBootTest {
     @Test
     public void readOnlyTrue(){
         //given
-        TransactionInfo transactionInfo = testServcie.NOT_SUPPORTS_readOnly_true();
+        TransactionInfo transactionInfo = testService.NOT_SUPPORTS_readOnly_true();
 
         //then
         assertTrue(transactionInfo.isCurrentTransactionReadOnly());

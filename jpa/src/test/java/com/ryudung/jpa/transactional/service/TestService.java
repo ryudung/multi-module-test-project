@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 @Slf4j
 @Service
 @TestConfiguration
-public class TestServcie {
+public class TestService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public TransactionInfo REQUIRED(){
