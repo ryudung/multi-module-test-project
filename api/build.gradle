@@ -10,15 +10,14 @@ bootJar {
 }
 
 dependencies {
-    asciidoctor('org.springframework.restdocs:spring-restdocs-asciidoctor')
-
+    
     compile project(':domain')
     compile('org.springframework.boot:spring-boot-starter-web')
 
-    runtimeOnly('com.h2database:h2')
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'junit', module: 'junit;'
-    }
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //rest doc
+    asciidoctor('org.springframework.restdocs:spring-restdocs-asciidoctor')
     testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 }
 
@@ -27,7 +26,20 @@ test {
     outputs.dir snippetsDir
 }
 
+version '1.0.0-' + new Date().format("yyyy-MM-dd-HH-mm-ss")
+
 asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
 }
+
+
+//*************************Rest Doc*************************
+asciidoctor {
+    attributes "date": new Date().format("yyyy-MM-dd"),
+            "version": version,
+            "developer": "ryudung"
+    inputs.dir snippetsDir
+    dependsOn test
+}
+//*************************Rest Doc*************************
